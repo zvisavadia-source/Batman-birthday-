@@ -1,90 +1,197 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday, My Batman 🦇</title>
-  <style>
+<meta charset="UTF-8">
+<title>Happy Birthday, Kalash 🦇</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Batman-style font -->
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+<style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #1a1a1a, #000000);
-      color: #f5f5f5;
-      text-align: center;
+        margin: 0;
+        padding: 0;
+        background: black;
+        color: #FFD700;
+        font-family: 'Bangers', cursive;
+        overflow: hidden;
+        text-align: center;
     }
-    section {
-      padding: 60px 20px;
-      max-width: 800px;
-      margin: auto;
+
+    .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 1s ease;
     }
-    h1, h2 {
-      color: #fdd835; /* Batman yellow */
-      letter-spacing: 2px;
+
+    .hidden {
+        opacity: 0;
+        pointer-events: none;
     }
-    .bat {
-      font-size: 60px;
+
+    .tap-text {
+        font-size: 4rem;
+        animation: pulse 1.5s infinite;
+        cursor: pointer;
     }
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      padding: 30px;
-      margin: 30px 0;
-      box-shadow: 0 0 20px rgba(253, 216, 53, 0.2);
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
     }
-    ul {
-      list-style: none;
-      padding: 0;
+
+    /* Envelope */
+    .envelope {
+        width: 200px;
+        height: 120px;
+        background: #111;
+        position: relative;
+        margin-top: 30px;
+        cursor: pointer;
     }
-    li::before {
-      content: "🦇 ";
+
+    .envelope::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-bottom: 60px solid #222;
+        transform-origin: top;
+        transition: transform 1s;
     }
-    footer {
-      margin: 60px 0 20px;
-      font-size: 14px;
-      color: #aaa;
+
+    .envelope.open::before {
+        transform: rotateX(180deg);
     }
-  </style>
+
+    .message {
+        font-size: 2.5rem;
+        margin-top: 20px;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    .show {
+        opacity: 1;
+    }
+
+    .click-next {
+        margin-top: 15px;
+        font-size: 1.5rem;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    /* Slide 2 */
+    .typewriter {
+        font-size: 2rem;
+        width: 80%;
+        margin: auto;
+        min-height: 150px;
+    }
+
+    .bat-logo {
+        font-size: 3rem;
+        margin-top: 40px;
+    }
+
+    /* Gotham skyline */
+    .skyline {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 80px;
+        background: repeating-linear-gradient(
+            to right,
+            #000 0px,
+            #000 20px,
+            #111 20px,
+            #111 40px
+        );
+    }
+</style>
 </head>
-<body>  <section>
-    <div class="bat">🦇</div>
-    <h1>Happy Birthday, My Batman</h1>
-    <p>The city sleeps peacefully tonight… because you exist.</p>
-  </section>  <section class="card">
-    <h2>To the Man Behind the Mask</h2>
-    <p>
-      You don’t see it, but I do. The strength, the kindness, the effort you put in every single day—even when life hasn’t been fair to you.
-      You might think you’re just surviving, but to me, you’re quietly heroic.
-    </p>
-    <p>
-      Just like Batman, you don’t need a spotlight. You love deeply, protect fiercely, and show up even when you’re tired.
-    </p>
-  </section>  <section class="card">
-    <h2>My Favourite Memories</h2>
-    <ul>
-      <li>Studying together even when it drove us both crazy</li>
-      <li>Late-night talks that healed more than sleep ever could</li>
-      <li>Slow dances, cuddles, and the comfort of being us</li>
-      <li>Every "I love you"—especially on hard days</li>
-    </ul>
-  </section>  <section class="card">
-    <h2>Why I Love You</h2>
-    <ul>
-      <li>You try—even when you feel you’re not enough</li>
-      <li>You remember the smallest things about me</li>
-      <li>You feel deeply, even if you show it quietly</li>
-      <li>You are my safe place</li>
-    </ul>
-  </section>  <section class="card">
-    <h2>A Promise</h2>
-    <p>
-      On days you doubt yourself, I’ll remind you who you are.
-      On days the world feels heavy, I’ll stand beside you.
-      And no matter where life takes us—I choose you.
-    </p>
-  </section>  <section>
-    <h2>Always Yours</h2>
-    <p>— Zeel ❤️</p>
-    <p><em>Now stop smiling at the screen and come hug me.</em></p>
-  </section>  <footer>
-    Gotham has its Batman. I have you.
-  </footer></body>
+
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide" id="slide1">
+    <div class="tap-text" onclick="openEnvelope()">TAP</div>
+
+    <div class="envelope" id="envelope" onclick="openEnvelope()"></div>
+
+    <div class="message" id="birthdayText">
+        Happy Birthday Kalash! 🦇
+    </div>
+
+    <div class="click-next" id="nextText">
+        Click for a message
+    </div>
+
+    <div class="skyline"></div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide hidden" id="slide2" onclick="startTyping()">
+    <div class="typewriter" id="typeText"></div>
+    <div class="bat-logo">🦇</div>
+    <div class="skyline"></div>
+</div>
+
+<script>
+    let opened = false;
+    let typed = false;
+
+    function openEnvelope() {
+        if (opened) return;
+        opened = true;
+
+        document.getElementById("envelope").classList.add("open");
+
+        setTimeout(() => {
+            document.getElementById("birthdayText").classList.add("show");
+        }, 800);
+
+        setTimeout(() => {
+            document.getElementById("nextText").classList.add("show");
+            document.getElementById("nextText").onclick = goToSlide2;
+        }, 2000);
+    }
+
+    function goToSlide2() {
+        document.getElementById("slide1").classList.add("hidden");
+        document.getElementById("slide2").classList.remove("hidden");
+    }
+
+    function startTyping() {
+        if (typed) return;
+        typed = true;
+
+        const text = "To my Dark Knight, every day with you is an adventure. Hope your day is as legendary as you are. 🦇";
+        let i = 0;
+        const speed = 50;
+
+        function type() {
+            if (i < text.length) {
+                document.getElementById("typeText").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        type();
+    }
+</script>
+
+</body>
 </html>
